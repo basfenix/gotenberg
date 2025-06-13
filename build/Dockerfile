@@ -258,6 +258,15 @@ RUN \
     # Cleanup.
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+    RUN \
+    # Debug: Check if ExifTool was actually installed
+    echo "=== DEBUG: Checking ExifTool installation ===" &&\
+    ls -la /usr/bin/ | grep -i exif || echo "No exiftool found in /usr/bin/" &&\
+    which exiftool || echo "exiftool not in PATH" &&\
+    dpkg -l | grep -i exif || echo "No exiftool packages installed" &&\
+    echo "=== END DEBUG ==="
+
+
 # Support for arbitrary user IDs (OpenShift).
 # See:
 # https://github.com/gotenberg/gotenberg/issues/1049.
